@@ -11,7 +11,9 @@ RUN apt-get -y update --fix-missing && \
     apt-get install -y curl && \
     apt-get install -y git && \
     apt-get install -y openssl && \
-    apt-get install -y libicu-dev
+    apt-get install -y libicu-dev && \
+    apt-get install -y libsqlite3-dev && \
+    apt-get install -y libsqlite3-0
 
 # Configure PHP for Cloud Run.
 # Precompile PHP code with opcache.
@@ -33,6 +35,7 @@ RUN set -ex; \
 
 # Install required PHP Extensions
 RUN docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install pdo_sqlite \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install json \
     && docker-php-ext-install pcntl \
